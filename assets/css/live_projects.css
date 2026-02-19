@@ -1,0 +1,153 @@
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  display: block;
+  background: #12151c;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid #1f2430;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.project-card.live {
+  border: 1px solid #4da3ff;
+  box-shadow: 0 0 0 1px rgba(77, 163, 255, 0.25);
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  opacity: 0.9;
+}
+
+/* ===============================
+   LIGHT THEME OVERRIDES
+================================ */
+.light .project-card {
+  background: #ffffff;
+  border: 1px solid #e1e5ea;
+  color: #000000;
+}
+
+.light .project-card p {
+  opacity: 0.85;
+  color: #333333;
+}
+
+.light .project-card.live {
+  border: 1px solid #4da3ff;
+  box-shadow: 0 0 0 1px rgba(77, 163, 255, 0.15);
+}
+
+.light .project-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.light .tech li {
+  background: #f1f3f6;
+  color: #000000;
+}
+
+.light .live-hint {
+  color: #4da3ff;
+}
+
+.project-card,
+.project-card * {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.tech li {
+  list-style: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #1c2230;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  background: #4da3ff;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 1px solid #4da3ff;
+}
+
+.live-btn {
+  background: linear-gradient(135deg, #4da3ff, #6dd5fa);
+}
+
+.repo-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4da3ff;
+  font-weight: 600;
+}
+
+.live-hint {
+  display: inline-block;
+  margin-top: 14px;
+  font-weight: 600;
+  color: #4da3ff;
+}
+
+/* Header alignment & spacing */
+.section.center {
+  text-align: center;
+  margin-top: 120px; /* moves header down */
+}
+
+/* Reduce font size slightly */
+.section.center h1 {
+  font-size: 2.2rem; /* ~2pt smaller than default */
+  margin-bottom: 10px;
+}
+
+.section.center .lead {
+  font-size: 1rem; /* slightly smaller subtitle */
+  max-width: 720px;
+  margin: 0 auto;
+}

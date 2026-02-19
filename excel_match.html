@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PDF → Excel OCR | Abhijeet Raj</title>
+
+    <meta
+      name="description"
+      content="Convert PDF to Excel using OCR. Secure token-based processing."
+    />
+    <meta name="theme-color" content="#0b0d10" />
+    <!-- Open Graph / Social -->
+    <meta
+      property="og:title"
+      content="Abhijeet Raj — Azure Data Engineer Azure Administrator & Python Developer"
+    />
+    <meta
+      property="og:description"
+      content="Data Engineer & Automation Developer skilled in Python, SQL, ADF, Databricks, Synapse, and ETL pipelines. I build end-to-end automation systems, including Azure data workflows, PDF/OCR processors, Excel-to-SQL import frameworks, and analytics solutions—consistently delivering accurate, scalable, and production-ready data processes."
+    />
+    <meta
+      name="keywords"
+      content="Data Engineer, Automation Developer, skilled, Python, SQL, ADF, Databricks, Synapse, and, ETL, pipelines., build, end-to-end, automation systems, including, Azure, data, workflows, PDF, OCR, processors, Excel, SQL, import, frameworks, analytics, solutions, consistently, delivering, accurate, scalable, production, ready, data processes"
+    />
+    <meta name="author" content="Abhijeet Raj" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/"
+    />
+    <meta property="og:site_name" content="Abhijeet Raj Modanwal Portfolio" />
+    <!-- Schema.org for Google -->
+    <meta
+      itemprop="name"
+      content="Abhijeet Raj — Azure Data Engineer, Azure Administrator & Python Developer"
+    />
+    <meta
+      itemprop="description"
+      content="I build scalable Azure ETL/ELT pipelines, PDF/OCR automation, and data workflows using Python, SQL, ADF, Databricks and Synapse."
+    />
+    <!-- Use a FULL URL for the image -->
+    <link
+      itemprop="image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <!-- Use a FULL URL for the image -->
+    <meta
+      property="og:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Profile image of Abhijeet Raj — Azure Data Engineer & Python Developer"
+    />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Abhijeet Raj — Azure Data Engineer, Azure Administrator & Python Developer"
+    />
+    <meta
+      name="twitter:description"
+      content="I build scalable Azure ETL/ELT pipelines, PDF/OCR automation, and data workflows using Python, SQL, ADF, Databricks and Synapse."
+    />
+    <meta
+      name="twitter:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/pdf_to_excel.css" />
+    <style>
+      .file-btn {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #4da3ff, #7b61ff);
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+      }
+      input[type="file"] {
+        display: none;
+      }
+      select {
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px;
+        border-radius: 8px;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <img
+          id="logo"
+          src="assets/images/arm_logo22.png"
+          alt="logo"
+          onerror="this.style.display = 'none'"
+        />
+        <a class="brand" href="index.html">Match Tool</a>
+      </div>
+
+      <div class="nav-right" role="menubar">
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="projects.html">Projects</a>
+        <a role="menuitem" href="index.html#contact">Contact</a>
+
+        <!-- Theme toggle (dark/light) -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa fa-moon"></i>
+          <span id="theme-text" style="font-weight: 700">Dark</span>
+        </button>
+
+        <a role="menuitem" href="pdf_to_excel.html">Live Project</a>
+      </div>
+    </nav>
+
+    <!-- ===== OCR CARD (UNCHANGED) ===== -->
+    <div class="card">
+      <h1>📊 Excel Match → Export</h1>
+
+      <!-- ===== UPLOAD ROW ===== -->
+      <div class="upload-row">
+        <div class="upload-block">
+          <label class="file-btn">
+            Upload Excel File 1
+            <input type="file" id="file1" accept=".xls,.xlsx" />
+          </label>
+          <select id="sheet1" disabled></select>
+        </div>
+
+        <div class="upload-block">
+          <label class="file-btn">
+            Upload Excel File 2
+            <input type="file" id="file2" accept=".xls,.xlsx" />
+          </label>
+          <select id="sheet2" disabled></select>
+        </div>
+      </div>
+
+      <!-- ===== MATCH ===== -->
+      <div class="center-block">
+        <label>Number of Match Columns</label>
+        <select id="matchCount" disabled>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div id="matchFields"></div>
+
+      <button class="btn btn-center" id="compareBtn" disabled>COMPARE</button>
+
+      <!-- ===== EXPORT ===== -->
+      <div class="center-block">
+        <label>Number of Export Columns</label>
+        <select id="exportCount" disabled>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div id="exportFields"></div>
+
+      <button class="btn btn-center" id="exportBtn" disabled>EXPORT</button>
+
+      <div class="status" id="status"></div>
+
+      <div class="download" id="downloadBox">
+        <button class="btn" id="downloadBtn">⬇ Download Excel File</button>
+      </div>
+
+      <div class="footer">Secure Match/Merge • Token Based • FastAPI</div>
+    </div>
+    <script src="assets/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- must be AFTER HTML -->
+    <script src="assets/js/excel_match.js"></script>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PDF → Images ZIP | Abhijeet Raj</title>
+
+    <meta
+      name="description"
+      content="Convert PDF to Images ZIP. Secure token-based processing."
+    />
+    <meta name="theme-color" content="#0b0d10" />
+    <!-- Open Graph / Social -->
+    <meta
+      property="og:title"
+      content="Abhijeet Raj — Azure Data Engineer Azure Administrator & Python Developer"
+    />
+    <meta
+      property="og:description"
+      content="Data Engineer & Automation Developer skilled in Python, SQL, ADF, Databricks, Synapse, and ETL pipelines. I build end-to-end automation systems, including Azure data workflows, PDF/OCR processors, Excel-to-SQL import frameworks, and analytics solutions—consistently delivering accurate, scalable, and production-ready data processes."
+    />
+    <meta
+      name="keywords"
+      content="Data Engineer, Automation Developer, skilled, Python, SQL, ADF, Databricks, Synapse, and, ETL, pipelines., build, end-to-end, automation systems, including, Azure, data, workflows, PDF, OCR, processors, Excel, SQL, import, frameworks, analytics, solutions, consistently, delivering, accurate, scalable, production, ready, data processes"
+    />
+    <meta name="author" content="Abhijeet Raj" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/"
+    />
+    <meta property="og:site_name" content="Abhijeet Raj Modanwal Portfolio" />
+    <!-- Schema.org for Google -->
+    <meta
+      itemprop="name"
+      content="Abhijeet Raj — Azure Data Engineer, Azure Administrator & Python Developer"
+    />
+    <meta
+      itemprop="description"
+      content="I build scalable Azure ETL/ELT pipelines, PDF/OCR automation, and data workflows using Python, SQL, ADF, Databricks and Synapse."
+    />
+    <!-- Use a FULL URL for the image -->
+    <link
+      itemprop="image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <!-- Use a FULL URL for the image -->
+    <meta
+      property="og:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Profile image of Abhijeet Raj — Azure Data Engineer & Python Developer"
+    />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Abhijeet Raj — Azure Data Engineer, Azure Administrator & Python Developer"
+    />
+    <meta
+      name="twitter:description"
+      content="I build scalable Azure ETL/ELT pipelines, PDF/OCR automation, and data workflows using Python, SQL, ADF, Databricks and Synapse."
+    />
+    <meta
+      name="twitter:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/pdf_to_excel.css" />
+    <style>
+      input[type="file"] {
+        display: none;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      input,
+      select {
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #dddee0;
+        color: #000000;
+        outline: none;
+      }
+
+      input:focus,
+      select:focus {
+        background: #dddee0;
+        box-shadow: 0 0 0 2px #4da3ff;
+      }
+      .status {
+        text-align: center;
+        margin-top: 10px;
+      }
+      .download {
+        display: none;
+        text-align: center;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <img
+          id="logo"
+          src="assets/images/arm_logo22.png"
+          alt="logo"
+          onerror="this.style.display = 'none'"
+        />
+        <a class="brand" href="index.html">Converter Tool</a>
+      </div>
+
+      <div class="nav-right" role="menubar">
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="projects.html">Projects</a>
+        <a role="menuitem" href="index.html#contact">Contact</a>
+
+        <!-- Theme toggle (dark/light) -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa fa-moon"></i>
+          <span id="theme-text" style="font-weight: 700">Dark</span>
+        </button>
+
+        <a role="menuitem" href="pdf_to_excel.html">Live Project</a>
+      </div>
+    </nav>
+    <!-- ===== CARD ===== -->
+    <div class="card">
+      <h1>📦 PDF → Images (ZIP)</h1>
+      <div class="subtitle">Upload PDF and download images as ZIP</div>
+
+      <label class="file-box file-label">
+        <img src="assets/images/pdf.png" class="pdf-icon" />
+        <div id="file-label-text">Select PDF file</div>
+        <input type="file" id="pdfFile" accept="application/pdf" />
+      </label>
+
+      <div class="controls">
+        <input type="number" id="startPage" min="1" placeholder="Start Page" />
+        <input type="number" id="endPage" min="1" placeholder="End Page" />
+      </div>
+
+      <button class="btn" id="convertBtn">
+        <i class="fa fa-box-archive"></i> Convert
+      </button>
+
+      <div class="status" id="status"></div>
+
+      <div class="download" id="downloadBox">
+        <button class="btn" id="downloadBtn">⬇ Download ZIP Images</button>
+      </div>
+      <div class="footer">Secure Pdf Split • Token Based • FastAPI</div>
+    </div>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="assets/js/pdf_to_images.js"></script>
+  </body>
+</html>

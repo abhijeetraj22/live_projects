@@ -1,0 +1,236 @@
+/* ================= CONTAINER ================= */
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:40px;
+}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:560px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:92px;
+  position:relative;
+  z-index:2;
+}
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:36px;
+  padding:34px;
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 18px 60px var(--shadow-strong);
+  transition:transform .45s ease;
+}
+
+.hero-inner:hover{
+  transform:translateY(-4px);
+}
+
+/* ================= PROFILE CARD ================= */
+.profile-card{
+  position:relative;
+  height:460px;
+  border-radius:18px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.profile-bg{
+  position:absolute;
+  inset:18px;
+  border-radius:14px;
+  filter:blur(18px) brightness(.35);
+  background-size:cover;
+  z-index:1;
+}
+
+.profile-inner{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.profile-frame{
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 14px 40px rgba(0,0,0,.6);
+}
+
+.profile-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ================= META ================= */
+.profile-meta{
+  margin-top:18px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.meta-pill{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.03);
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ================= SOCIAL ================= */
+.social-ico{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+
+.social-ico a{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+/* ================= RIGHT COLUMN ================= */
+.hero-head h1{
+  font-size:44px;
+  margin-bottom:6px;
+}
+
+.lead{
+  font-size:18px;
+  color:var(--muted);
+}
+
+.highlight-card{
+  margin-top:18px;
+  padding:22px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.03);
+}
+
+/* ================= SKILLS ================= */
+.skills-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:16px;
+}
+
+.chip{
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.04);
+  color:var(--muted);
+}
+
+/* ================= PROJECTS ================= */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:12px;
+}
+
+.proj-card{
+  padding:18px;
+  border-radius:12px;
+  border-left:4px solid rgba(0,230,255,.08);
+}
+
+.proj-card h3{
+  margin:0 0 8px;
+}
+
+.proj-card p{
+  color:var(--muted);
+}
+
+/* ================= CERTIFICATES ================= */
+.cert-slider{
+  position:relative;
+  margin-top:25px;
+  overflow:hidden;
+}
+
+.cert-track{
+  display:flex;
+  gap:26px;
+}
+
+.cert-slide{
+  min-width:320px;
+  height:220px;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.cert-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ================= BADGES ================= */
+.badge-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:22px;
+  justify-items:center;
+}
+
+.badge-card{
+  width:180px;
+  height:180px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.badge-card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+/* ================= CONTACT ================= */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.contact-card{
+  padding:18px;
+  border-radius:10px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1040px){
+  .hero-inner{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:560px){
+  .hero-head h1{font-size:28px}
+  .container{padding:18px}
+}

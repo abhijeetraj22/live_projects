@@ -1,0 +1,107 @@
+/* ================= BASE THEME ================= */
+:root{
+  --bg:#0b0d10;
+  --card:#0f1720;
+  --bg-card:#15181c;
+  --text:#e9eef5;
+  --muted:#9aa0a6;
+  --accent:#00e6ff;
+  --accent-2:#6a9cff;
+  --glass: rgba(255,255,255,0.03);
+  --shadow-strong: rgba(2,8,20,0.7);
+  --radius:16px;
+}
+
+:root.light,
+html[data-theme="light"]{
+  --bg:#f7f9fb;
+  --card:#ffffff;
+  --bg-card:#ffffff;
+  --text:#0b1220;
+  --muted:#5b6a73;
+  --accent:#0066cc;
+  --accent-2:#0047a3;
+}
+
+/* ================= RESET ================= */
+*{box-sizing:border-box}
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.28s;
+}
+
+/* ================= PARTICLES ================= */
+#particles-js{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+}
+
+/* ================= NAVBAR ================= */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.1));
+  border-bottom:1px solid rgba(255,255,255,.03);
+  z-index:1000;
+}
+
+.nav-left,.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.brand{
+  font-weight:800;
+  font-size:20px;
+  color:var(--text);
+}
+
+.theme-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.06);
+  padding:8px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+/* ================= BUTTON ================= */
+.btn{
+  padding:12px 20px;
+  border-radius:12px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+}
+
+/* ================= FOOTER ================= */
+.footer{
+  padding:32px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* ================= ANIMATION ================= */
+.fade-in-up{
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeUp .7s ease forwards;
+}
+
+@keyframes fadeUp{
+  to{opacity:1;transform:none}
+}

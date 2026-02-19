@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>CBSE Result → Excel Extractor | Abhijeet Raj</title>
+
+    <meta
+      name="description"
+      content="Convert HTML or TXT files into clean, structured Excel sheets. Strict row-wise extraction with no column leakage using FastAPI-based automation."
+    />
+    <meta name="theme-color" content="#0b0d10" />
+
+    <!-- Open Graph / Social -->
+    <meta
+      property="og:title"
+      content="HTML / TXT → Excel Extractor | Abhijeet Raj"
+    />
+    <meta
+      property="og:description"
+      content="Extract structured data from HTML or TXT files and export to Excel with strict row-by-row logic. Built using Python, FastAPI, and BeautifulSoup for accurate, production-ready automation."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/html_to_excel.html"
+    />
+    <meta property="og:site_name" content="Abhijeet Raj Modanwal Portfolio" />
+
+    <!-- SEO Keywords -->
+    <meta
+      name="keywords"
+      content="HTML to Excel, TXT to Excel, HTML data extraction, BeautifulSoup automation, Python HTML parser, FastAPI Excel export, data extraction tool, automation developer, data engineer portfolio"
+    />
+    <meta name="author" content="Abhijeet Raj" />
+
+    <!-- Schema.org for Google -->
+    <meta
+      itemprop="name"
+      content="HTML / TXT → Excel Extractor | Abhijeet Raj"
+    />
+    <meta
+      itemprop="description"
+      content="A smart automation tool to convert HTML and TXT files into clean Excel output using Python, BeautifulSoup, and FastAPI."
+    />
+    <link
+      itemprop="image"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/ARM_img.png"
+    />
+
+    <!-- Open Graph Image -->
+    <meta
+      property="og:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="HTML to Excel Data Extraction Tool by Abhijeet Raj"
+    />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="HTML / TXT → Excel Extractor | Abhijeet Raj"
+    />
+    <meta
+      name="twitter:description"
+      content="Convert HTML or TXT files into structured Excel sheets using Python automation. Clean rows, dynamic columns, no data leakage."
+    />
+    <meta
+      name="twitter:image"
+      content="https://abhijeetraj22.github.io/abhijeetraj22/assets/images/arm_logo22.png"
+    />
+
+    <meta
+      name="description"
+      content="Convert HTML or TXT to Excel using structured extraction."
+    />
+    <meta name="theme-color" content="#0b0d10" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Styles (UNCHANGED) -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/pdf_to_excel.css" />
+
+    <style>
+      select,
+      input,
+      textarea {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        background-color: #dddee0; /* light grey */
+        color: #000000; /* black text */
+        border: none;
+        outline: none;
+      }
+      textarea {
+        height: 100px;
+      }
+      #status {
+        text-align: center;
+        margin-top: 10px;
+      }
+      /* Focus state */
+      select:focus,
+      textarea:focus {
+        background-color: #dddee0;
+        box-shadow: 0 0 0 2px #4da3ff;
+      }
+      .file-box {
+        margin-top: 16px; /* adjust as needed */
+      }
+      .form-group {
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="particles-js"></div>
+
+    <!-- ===== NAVBAR (100% UNCHANGED) ===== -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav-left">
+        <img
+          id="logo"
+          src="assets/images/arm_logo22.png"
+          alt="logo"
+          onerror="this.style.display = 'none'"
+        />
+        <a class="brand" href="index.html">Converter Tool</a>
+      </div>
+
+      <div class="nav-right" role="menubar">
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="projects.html">Projects</a>
+        <a role="menuitem" href="index.html#contact">Contact</a>
+
+        <!-- Theme toggle (UNCHANGED) -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa fa-moon"></i>
+          <span id="theme-text" style="font-weight: 700">Dark</span>
+        </button>
+
+        <a role="menuitem" href="pdf_to_excel.html">Live Project</a>
+      </div>
+    </nav>
+
+    <!-- ===== CARD (SAME STRUCTURE) ===== -->
+    <div class="card">
+      <h1>📊 CBSE Result Parser</h1>
+      <div class="subtitle">TXT → Excel (Grade 10 / 12)</div>
+
+      <div class="form-group">
+        <select id="grade">
+          <option value="10">Grade 10</option>
+          <option value="12">Grade 12</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="file-box file-label">
+          <img src="assets/images/text.png" class="pdf-icon" />
+          <div id="file-label-text">Select TXT file</div>
+          <input type="file" id="txtFile" accept=".txt" />
+        </label>
+      </div>
+
+      <textarea
+        id="sampleLine"
+        placeholder="Paste sample student line here"
+        style="width: 100%; height: 100px; margin-top: 10px"
+      ></textarea>
+
+      <button class="btn" id="processBtn">
+        <i class="fa fa-gear"></i> Generate Excel
+      </button>
+
+      <div class="status" id="status"></div>
+
+      <div class="download" id="downloadBox">
+        <button class="btn" id="downloadBtn">⬇ Download Excel File</button>
+      </div>
+
+      <div class="footer">Secure Extraction • Token Based • FastAPI</div>
+    </div>
+
+    <!-- ===== PARTICLES (UNCHANGED) ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script src="assets/js/cbse_parser.js"></script>
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>
