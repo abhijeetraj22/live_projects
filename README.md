@@ -3,6 +3,9 @@
 A collection of **production-ready automation tools** built using **Python & FastAPI**, focused on **document processing, data extraction, and Excel automation**.
 Designed for **accuracy, scalability, and real-world usage**.
 
+🔗 **Live Demo**
+👉 [https://abhijeetraj22.github.io/live_projects](https://abhijeetraj22.github.io/live_projects)
+
 ---
 
 ## 🚀 Live Tools Included
