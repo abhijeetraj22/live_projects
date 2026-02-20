@@ -144,10 +144,13 @@ goBtn.addEventListener("click", async () => {
   if (token) fd.append("token", token);
 
   try {
-    const resp = await fetch(API_URL, {
-      method: "POST",
-      body: fd,
-    });
+      const resp = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "X-API-Key": "your-strong-secret-key-123"
+        },
+        body: fd,
+      });
 
     const newToken = resp.headers.get("x-user-token");
     if (newToken) saveToken(newToken);
@@ -164,3 +167,4 @@ goBtn.addEventListener("click", async () => {
     goBtn.innerHTML = '<i class="fa fa-gear"></i> Convert to Excel';
   }
 });
+
