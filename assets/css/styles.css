@@ -81,7 +81,7 @@ display: none !important;
 .skills-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
 .chip{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:12px;color:var(--muted);font-weight:700}
 .cta{margin-top:20px}
-.btn{display:inline-block;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#001;padding-left:18px;font-weight:800;margin-right:12px;border:none;cursor:pointer;box-shadow:0 12px 40px rgba(0,200,255,0.07);transition:transform .18s ease}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent-2));color: rgb(255, 255, 255);padding-left:18px;font-weight:800;margin-right:12px;border:none;cursor:pointer;box-shadow:0 12px 40px rgba(0,200,255,0.07);transition:transform .18s ease}
 .btn:hover{transform:translateY(-4px)}
 .btn-outline{display:inline-block;padding:12px 20px;border-radius:12px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.04)}
 
@@ -317,3 +317,4 @@ a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(0,230,
 .match-grid select {
   width: 100%;
 }
+
