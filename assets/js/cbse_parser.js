@@ -2,6 +2,7 @@
    CONFIG
 ===================================================== */
 const API_URL = "https://pdf-to-excel-api-smdv.onrender.com/cbse/parse";
+//const API_URL = "http://127.0.0.1:8000/cbse/parse";
 
 let excelBlob = null;
 
@@ -104,8 +105,9 @@ processBtn.addEventListener("click", async () => {
   fd.append("grade", grade);
 
   processBtn.disabled = true;
-  processBtn.innerHTML = "⏳ Processing…";
-  status.textContent = "⏳ Processing…";
+  const oldText = processBtn.innerHTML;
+  processBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+
   downloadBox.style.display = "none";
   excelBlob = null;
 
@@ -129,7 +131,7 @@ processBtn.addEventListener("click", async () => {
     status.textContent = "❌ " + err.message;
   } finally {
     processBtn.disabled = false;
-    processBtn.innerHTML = '<i class="fa fa-gear"></i> Generate Excel';
+    processBtn.innerHTML = oldText;
   }
 });
 
