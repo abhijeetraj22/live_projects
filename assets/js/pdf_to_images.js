@@ -1,6 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
+//const API_URL = "http://127.0.0.1:8000/pdf/convert-to-zip";
 const API_URL = "https://pdf-to-excel-api-smdv.onrender.com/pdf/convert-to-zip";
 
 let zipFileName = "pdf_images.zip";
@@ -35,11 +36,11 @@ function initParticles() {
       color: { value: "#4da3ff" },
       size: { value: 2 },
       move: { speed: 0.6 },
-      line_linked: { enable: false }
+      line_linked: { enable: false },
     },
     interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } }
-    }
+      events: { onhover: { enable: true, mode: "repulse" } },
+    },
   });
 }
 
@@ -98,23 +99,51 @@ convertBtn.addEventListener("click", async () => {
     return;
   }
 
+  /* -------- PAGE VALIDATION -------- */
+
+  const startPage = parseInt(startPageInput.value || 1);
+  const endPage = parseInt(endPageInput.value || 1);
+
+  if (!startPageInput.value || !endPageInput.value) {
+    status.textContent = "❌ Please enter page number range.";
+    return;
+  }
+
+  if (startPage > endPage) {
+    status.textContent = "❌ Start page cannot be greater than End page.";
+    return;
+  }
+
+  if (endPage - startPage + 1 > 20) {
+    status.textContent = "❌ Maximum 20 pages allowed.";
+    return;
+  }
+
   const fd = new FormData();
   fd.append("file", pdfInput.files[0]);
   fd.append("start_page", startPageInput.value || 1);
   fd.append("end_page", endPageInput.value || 99999);
   fd.append("image_format", "png");
-
+  const oldText = convertBtn.innerHTML;
+  convertBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
   status.textContent = "⏳ Converting PDF…";
   downloadBox.style.display = "none";
+  pdfInput.disabled = true;
   convertBtn.disabled = true;
+  startPageInput.disabled = true;
+  endPageInput.disabled = true;
 
   try {
     const res = await fetch(API_URL, {
       method: "POST",
-      body: fd
+      headers: { "X-API-Key": "your-strong-secret-key-123" },
+      body: fd,
     });
 
-    if (!res.ok) throw new Error("Conversion failed");
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || "Conversion failed");
+    }
 
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);
@@ -131,10 +160,13 @@ convertBtn.addEventListener("click", async () => {
 
     downloadBox.style.display = "block";
     status.textContent = "✅ Conversion complete. Click Download.";
-
   } catch (err) {
     status.textContent = "❌ " + err.message;
   } finally {
+    pdfInput.disabled = false;
     convertBtn.disabled = false;
+    startPageInput.disabled = false;
+    endPageInput.disabled = false;
+    convertBtn.innerHTML = oldText;
   }
 });
