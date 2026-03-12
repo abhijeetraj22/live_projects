@@ -1,13 +1,252 @@
 .file-btn {
-    display:inline-block;
-    padding:12px 20px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#4da3ff,#7b61ff);
-    color:white;
-    cursor:pointer;
-    font-weight:600;
-    text-align:center;
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4da3ff, #7b61ff);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
 }
-input[type=file]{display:none}
-select{width:100%;margin-top:8px;padding:8px;border-radius:8px}
-button:disabled{opacity:.45;cursor:not-allowed}
+input[type="file"] {
+  display: none;
+}
+select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.merge-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.merge-btn.active {
+  background: #4da3ff;
+}
+
+/* Center the buttons */
+.btn {
+  width: 100%;
+}
+
+:root {
+  --radius: 16px;
+  --accent: #4da3ff;
+}
+
+/* ===== THEME ===== */
+
+html[data-theme="dark"] {
+  --bg: #0b0d10;
+  --bg-card: #15181c;
+  --text: #e6e6e6;
+  --muted: #9aa0a6;
+}
+
+html[data-theme="light"] {
+  --bg: #f5f6fa;
+  --bg-card: #ffffff;
+  --text: #111;
+  --muted: #555;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-top: 78px;
+}
+
+/* ===== PARTICLES BACKGROUND ===== */
+
+#particles-js {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--bg);
+}
+
+html[data-theme="dark"] #particles-js::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 16, 0.85);
+}
+
+html[data-theme="light"] #particles-js::after {
+  display: none;
+}
+
+/* ===== CARD ===== */
+
+.card {
+  background: var(--bg-card);
+  max-width: 520px;
+  width: 100%;
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  animation: fadeUp 0.6s ease;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* ===== INPUTS ===== */
+
+input,
+select {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #dddee0;
+  color: #000;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  background: #dddee0;
+  box-shadow: 0 0 0 2px #4da3ff;
+}
+
+/* ===== BUTTON ===== */
+
+.btn {
+  margin-top: 22px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #4da3ff, #7b61ff);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(77, 163, 255, 0.35);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===== FILE BUTTON ===== */
+
+.file-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4da3ff, #7b61ff);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* ===== MERGE BUTTONS ===== */
+
+.merge-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.merge-btn.active {
+  background: #4da3ff;
+}
+
+/* ===== STATUS ===== */
+
+.status {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 20px;
+  text-align: center;
+}
+
+/* ===== DOWNLOAD ===== */
+
+.download {
+  display: none;
+  margin-top: 14px;
+  text-align: center;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== ANIMATION ===== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.selected-method {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.selected-method span {
+  color: #4da3ff;
+  font-weight: 600;
+}
+
+.file-name {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
