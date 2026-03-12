@@ -1,6 +1,7 @@
 /* =====================================================
    CONFIG
 ===================================================== */
+//const API_URL = "http://127.0.0.1:8000/pdf/merge-compress";
 const API_URL = "https://pdf-to-excel-api-smdv.onrender.com/pdf/merge-compress";
 
 /* =====================================================
@@ -31,11 +32,11 @@ function initParticles() {
       color: { value: "#4da3ff" },
       size: { value: 2 },
       move: { speed: 0.6 },
-      line_linked: { enable: false }
+      line_linked: { enable: false },
     },
     interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } }
-    }
+      events: { onhover: { enable: true, mode: "repulse" } },
+    },
   });
 }
 
@@ -90,16 +91,20 @@ mergeBtn.addEventListener("click", async () => {
   }
 
   const fd = new FormData();
-  [...input.files].forEach(f => fd.append("files", f));
+  [...input.files].forEach((f) => fd.append("files", f));
 
   status.textContent = "⏳ Merging files…";
   downloadBox.style.display = "none";
   mergeBtn.disabled = true;
+  const oldText = mergeBtn.innerHTML;
+
+  mergeBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
 
   try {
     const res = await fetch(API_URL, {
       method: "POST",
-      body: fd
+      headers: { "X-API-Key": "your-strong-secret-key-123" },
+      body: fd,
     });
 
     if (!res.ok) throw new Error("Merge failed");
@@ -107,11 +112,11 @@ mergeBtn.addEventListener("click", async () => {
     mergedBlob = await res.blob();
     status.textContent = "✅ Merge complete";
     downloadBox.style.display = "block";
-
   } catch (err) {
     status.textContent = "❌ " + err.message;
   } finally {
     mergeBtn.disabled = false;
+    mergeBtn.innerHTML = oldText;
   }
 });
 
