@@ -2,6 +2,7 @@
    CONFIG
 ============================== */
 const API_URL = "https://pdf-to-excel-api-smdv.onrender.com/convert/htmltxt";
+//const API_URL = "http://127.0.0.1:8000/convert/htmltxt";
 
 let outputFileName = "html_extracted.xlsx";
 let downloadUrl = null;
@@ -76,6 +77,8 @@ document.getElementById("go").onclick = async () => {
   const btn = document.getElementById("go");
   btn.disabled = true;
   btn.innerHTML = "⏳ Processing...";
+  const oldText = btn.innerHTML;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
 
   document.getElementById("status").innerText = "⏳ Uploading & processing...";
   document.getElementById("downloadBox").style.display = "none";
@@ -86,6 +89,7 @@ document.getElementById("go").onclick = async () => {
   try {
     const resp = await fetch(API_URL, {
       method: "POST",
+      headers: { "X-API-Key": "your-strong-secret-key-123" },
       body: fd,
     });
 
@@ -96,7 +100,7 @@ document.getElementById("go").onclick = async () => {
     document.getElementById("status").innerText = "❌ " + err.message;
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '<i class="fa fa-gear"></i> Convert to Excel';
+    btn.innerHTML = oldText;
   }
 };
 
