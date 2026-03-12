@@ -104,32 +104,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="assets/css/pdf_to_excel.css" />
-    <style>
-      .file-btn {
-        display: inline-block;
-        padding: 12px 20px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #4da3ff, #7b61ff);
-        color: white;
-        cursor: pointer;
-        font-weight: 600;
-        text-align: center;
-      }
-      input[type="file"] {
-        display: none;
-      }
-      select {
-        width: 100%;
-        margin-top: 8px;
-        padding: 8px;
-        border-radius: 8px;
-      }
-      button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/css/excel_match.css" />
   </head>
   <body>
     <div id="particles-js"></div>
@@ -157,7 +132,7 @@
           <span id="theme-text" style="font-weight: 700">Dark</span>
         </button>
 
-        <a role="menuitem" href="pdf_to_excel.html">Live Project</a>
+        <a role="menuitem" href="live_projects.html">Live Project</a>
       </div>
     </nav>
 
@@ -172,6 +147,7 @@
             Upload Excel File 1
             <input type="file" id="file1" accept=".xls,.xlsx" />
           </label>
+          <div class="file-name" id="file1Name">No file selected</div>
           <select id="sheet1" disabled></select>
         </div>
 
@@ -180,6 +156,7 @@
             Upload Excel File 2
             <input type="file" id="file2" accept=".xls,.xlsx" />
           </label>
+          <div class="file-name" id="file2Name">No file selected</div>
           <select id="sheet2" disabled></select>
         </div>
       </div>
@@ -213,13 +190,36 @@
           <option value="8">8</option>
           <option value="9">9</option>
           <option value="10">10</option>
+          <option value="11">11</option>
         </select>
       </div>
+      <div class="center-block" id="mergeSection" style="display: none">
+        <label>Merge Type</label>
 
+        <div class="merge-buttons">
+          <button type="button" class="btn merge-btn active" data-type="inner">
+            Match Only
+          </button>
+
+          <button type="button" class="btn merge-btn" data-type="left">
+            Left Merge
+          </button>
+
+          <button type="button" class="btn merge-btn" data-type="right">
+            Right Merge
+          </button>
+
+          <button type="button" class="btn merge-btn" data-type="outer">
+            Full Merge
+          </button>
+        </div>
+      </div>
       <div id="exportFields"></div>
 
       <button class="btn btn-center" id="exportBtn" disabled>EXPORT</button>
-
+      <div class="selected-method" id="mergeStatusBox">
+        Merge mode: <span id="mergeModeText">None</span>
+      </div>
       <div class="status" id="status"></div>
 
       <div class="download" id="downloadBox">
@@ -228,16 +228,14 @@
 
       <div class="footer">Secure Match/Merge • Token Based • FastAPI</div>
     </div>
-        <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer class="footer">
-      <p>© <span id="year"></span>  Abhijeet Raj • ARM </p>
+      <p>© <span id="year"></span> Abhijeet Raj • ARM</p>
     </footer>
-
+    <script src="assets/js/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <!-- EXTERNAL JS FILE -->
+    <!-- must be AFTER HTML -->
     <script src="assets/js/excel_match.js"></script>
-    <script src="assets/js/main.js" defer></script>
   </body>
 </html>
-
