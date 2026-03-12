@@ -132,7 +132,7 @@
           <span id="theme-text" style="font-weight: 700">Dark</span>
         </button>
 
-        <a role="menuitem" href="pdf_to_excel.html">Live Project</a>
+        <a role="menuitem" href="live_projects.html">Live Project</a>
       </div>
     </nav>
 
@@ -146,11 +146,58 @@
         <div id="file-label-text">Select PDF file</div>
         <input type="file" id="pdfFile" accept="application/pdf" />
       </label>
+      <div class="controls">
+        <input type="number" id="startPage" min="1" placeholder="Start Page" />
+        <input type="number" id="endPage" min="1" placeholder="End Page" />
+      </div>
 
-      <button class="btn" id="convertExcel">
-        <i class="fa fa-gear"></i> Convert to Excel
-      </button>
+      <div class="extraction-type">
+        <label>Select PDF Type</label>
 
+        <select id="pdfType">
+          <option value="text">Text PDF</option>
+          <option value="image">Image / Scanned PDF</option>
+        </select>
+      </div>
+
+      <!-- TEXT METHODS -->
+      <div class="mode-buttons" id="textMethods">
+        <div class="button-row">
+          <button class="btn method-btn" data-method="grid">
+            Grid Detection
+          </button>
+          <button class="btn method-btn" data-method="lattice">Lattice</button>
+        </div>
+
+        <div class="button-row">
+          <button class="btn method-btn" data-method="stream">Stream</button>
+          <button class="btn method-btn" data-method="text">Text</button>
+        </div>
+      </div>
+
+      <!-- IMAGE METHODS -->
+      <div class="mode-buttons" id="imageMethods" style="display: none">
+        <div class="button-row">
+          <button class="btn method-btn" data-method="ocr">OCR</button>
+          <button class="btn method-btn" data-method="hybrid">Hybrid</button>
+        </div>
+      </div>
+
+      <!-- CONVERT BUTTONS -->
+      <div class="mode-buttons">
+        <div class="button-row">
+          <button class="btn" id="singleSheet">
+            <i class="fa fa-file-excel"></i> Convert (Single Sheet)
+          </button>
+
+          <button class="btn" id="multiSheet">
+            <i class="fa fa-table"></i> Convert (Multiple Sheets)
+          </button>
+        </div>
+      </div>
+      <div class="selected-method" id="selectedMethodBox">
+        Selected Extraction: <span id="selectedMethodText">Grid Detection</span>
+      </div>
       <div class="status" id="status"></div>
 
       <div class="download" id="downloadBox" style="display: none">
@@ -164,14 +211,11 @@
     </div>
     <!-- FOOTER -->
     <footer class="footer">
-      <p>© <span id="year"></span>  Abhijeet Raj • ARM </p>
+      <p>© <span id="year"></span> Abhijeet Raj • ARM</p>
     </footer>
     <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <!-- EXTERNAL JS FILE -->
-    <script src="assets/js/pdf_to_excel.js" defer></script>
+    <script src="assets/js/pdf_to_excel.js"></script>
     <script src="assets/js/main.js" defer></script>
   </body>
 </html>
-
-
