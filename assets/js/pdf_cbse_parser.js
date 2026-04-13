@@ -181,9 +181,14 @@ processBtn.addEventListener("click", async () => {
 downloadBtn.addEventListener("click", () => {
   if (!excelBlob) return;
 
-  let name = prompt("Enter file name:", "cbse_result.xlsx");
+  // 🔥 DEFAULT NAME BASED ON MODE
+  let defaultName = mode === "txt" ? "cbse_result.xlsx" : "cbse_data.xlsx";
+
+  // 🔥 PROMPT WITH DEFAULT NAME
+  let name = prompt("Enter file name:", defaultName);
   if (!name) return;
 
+  // 🔥 ENSURE .xlsx EXTENSION
   if (!name.toLowerCase().endsWith(".xlsx")) {
     name += ".xlsx";
   }
@@ -192,9 +197,12 @@ downloadBtn.addEventListener("click", () => {
   const a = document.createElement("a");
   a.href = url;
   a.download = name;
+
   document.body.appendChild(a);
   a.click();
   a.remove();
+
+  // 🔥 CLEAN MEMORY (IMPORTANT)
   URL.revokeObjectURL(url);
 });
 
