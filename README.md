@@ -1,159 +1,207 @@
-# 📊 Automation Tools Suite (FastAPI Based)
+# 🚀 Automation Tools Suite (FastAPI Powered – Production Ready)
 
-A collection of **production-ready automation tools** built using **Python & FastAPI**, focused on **document processing, data extraction, and Excel automation**.
-Designed for **accuracy, scalability, and real-world usage**.
+A collection of **high-performance automation APIs** built using FastAPI and Python, designed for:
 
-🔗 **Live Demo**
+✔ Document Processing  
+✔ Data Extraction  
+✔ Excel Automation  
+✔ CBSE Result Parsing  
+
+Built with a **bulletproof architecture (no crash, no corruption)** and optimized for **real-world enterprise workflows**.
+
+---
+
+## 🌐 Live Demo
+
 👉 [https://abhijeetraj22.github.io/live_projects](https://abhijeetraj22.github.io/live_projects)
 
 ---
 
-## 🚀 Live Tools Included
+# ⚡ Core API Engine (v3.0 – Smart Hybrid)
 
-### 1️⃣ PDF → Excel Converter
+Your backend is now powered by:
 
-Convert **text-based PDFs** into clean **Excel** files with strict structure preservation.
+### 🔥 Smart PDF Processing Engine
 
-**Features**
+* Multi-method extraction:
 
-* Text-based PDF parsing
-* Excel output
-* Token-based secure processing
-* Row-wise structured extraction
+  * Grid Detection (advanced)
+  * Lattice (Camelot)
+  * Stream parsing
+  * Text extraction
+  * OCR fallback (Tesseract)
+* Batch processing (prevents crashes)
+* Page-range control (max 20 pages)
+* Multi / Single Excel modes
 
-**Tech Stack**
+📌 This is clearly visible in your API logic 
+
+---
+
+## 🔐 Enterprise-Level Security
+
+* API Key Authentication (`X-API-Key`)
+* Token-based usage tracking
+* Daily request limits (rate limiting)
+* No file storage (temporary processing only)
+* CORS enabled for secure frontend integration
+
+---
+
+# 🚀 Live Tools
+
+---
+
+## 1️⃣ PDF → Excel (Smart Hybrid Converter)
+
+Convert PDFs into **structured Excel with zero corruption**
+
+### 🔥 Features
+
+* Multi-engine extraction (Grid + Lattice + OCR)
+* Page range selection
+* Handles complex tables & broken layouts
+* Crash-safe batching
+* Output modes:
+
+  * Multi-sheet (page-wise)
+  * Single-sheet
+
+### 🛠 Tech
 
 * Python
 * FastAPI
-* PDF parsing libraries
-* Excel automation
+* Camelot
+* pdfplumber
+* pytesseract
 
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_excel.html](https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_excel.html)
 
 ---
 
-### 2️⃣ HTML / TXT → Excel Extractor
+## 2️⃣ HTML / TXT → Excel Extractor
 
-Extract structured data from **HTML Web or TXT** files into clean Excel sheets with **zero column leakage**.
+Extract structured data from HTML/TXT with **clean schema mapping**
 
-**Features**
+### 🔥 Features
 
-* Strict row-by-row extraction
-* Supports HTML & TXT inputs
-* Clean Excel formatting
-* Reliable parsing logic
+* Label → Value extraction logic
+* Handles nested HTML structures
+* Zero column mismatch
+* Smart parsing using DOM
 
-**Tech Stack**
+### 🛠 Tech
 
 * Python
 * FastAPI
 * BeautifulSoup
-* Excel (OpenPyXL / Pandas)
+* Pandas / OpenPyXL
 
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/html_to_excel.html](https://abhijeetraj22.github.io/abhijeetraj22/html_to_excel.html)
 
 ---
 
-### 3️⃣ CBSE Result → Excel Parser (Grade 10 & 12)
+## 3️⃣ CBSE Result Parser (Grade 10 & 12)
 
-Automated **CBSE result processing** tool that converts TXT result files into structured Excel sheets.
+Advanced academic parser for CBSE results (TXT / PDF)
 
-**Features**
+### 🔥 Features
 
-* Grade 10 & 12 support
-* Subject code → name mapping
-* Total & percentage calculation
-* Clean student-wise Excel output
+* Subject code validation (strict)
+* Marks-only sample detection
+* Grade mismatch protection
+* Automatic:
 
-**Tech Stack**
+  * Total calculation
+  * Percentage
+  * Ranking
+* Summary sheet (Highest, Avg, Distinction)
+
+### 🛠 Tech
 
 * Python
 * FastAPI
-* TXT parsing
-* Excel automation
+* Regex-based parsing engine
 
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/cbse_result_parser.html](https://abhijeetraj22.github.io/abhijeetraj22/cbse_result_parser.html)
 
 ---
 
-### 4️⃣ PDF → Images (ZIP Converter)
+## 4️⃣ PDF → Images (ZIP Export)
 
-Convert selected pages of a PDF into **high-quality images** and download them as a ZIP file.
+Convert PDF pages into high-quality images
 
-**Features**
+### 🔥 Features
 
 * Page range selection
-* Preserves resolution & order
+* PNG / JPG output
+* Resolution preserved
 * ZIP download
-* Secure processing
 
-**Tech Stack**
-
-* Python
-* FastAPI
-* PDF processing
-* Image generation
-
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_images.html](https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_images.html)
 
 ---
 
-### 5️⃣ Merge PDF & Word → Single PDF
+## 5️⃣ Merge PDF & DOCX → Single PDF
 
-Merge multiple **PDF and DOCX files** into a single optimized PDF.
+Combine multiple documents into one optimized PDF
 
-**Features**
+### 🔥 Features
 
-* Supports PDF & DOCX inputs
-* Preserves layout & orientation
-* Optimized output size
-* Secure merge process
+* Supports PDF + DOCX
+* Lossless compression
+* Layout preserved
+* Web-optimized output
 
-**Tech Stack**
+### 🛠 Tech
 
-* Python
-* FastAPI
-* PDF & DOCX processing
+* pikepdf
+* docx2pdf
 
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/merge_pdf.html](https://abhijeetraj22.github.io/abhijeetraj22/merge_pdf.html)
 
 ---
 
-### 6️⃣ Excel Match → Export Tool
+## 6️⃣ Excel Match → Compare & Export
 
-Compare two Excel files and export matched results based on dynamic column selection.
+Compare two Excel files with dynamic logic
 
-**Features**
+### 🔥 Features
 
 * Multi-column matching
-* Dynamic column selection
-* Clean export output
-* Ideal for reconciliation tasks
+* Smart normalization:
 
-**Tech Stack**
+  * Text
+  * Date
+  * Numeric
+* Merge types:
 
-* Python
-* FastAPI
-* Excel processing
-* Data matching logic
+  * Inner / Left / Right / Outer
+* Custom export columns
 
-🔗 **Live Demo**
 👉 [https://abhijeetraj22.github.io/abhijeetraj22/excel_match.html](https://abhijeetraj22.github.io/abhijeetraj22/excel_match.html)
 
 ---
 
-## 🛠 Tech Stack Summary
+# 🧠 Advanced Backend Capabilities
 
-* **Backend:** Python, FastAPI
-* **Data Handling:** Pandas, OpenPyXL
-* **Document Processing:** PDF, DOCX, HTML, TXT
-* **Security:** Token-based request handling
-* **Deployment Ready:** GitHub Pages + API backend
+### ⚙️ Smart Processing Design
+
+* Batch-based PDF handling (no memory crash)
+* Multi-engine fallback system
+* Adaptive parsing strategy
+
+### 📊 Data Intelligence
+
+* Dynamic column detection
+* Schema-safe extraction
+* Rank & analytics generation
+
+### 🔁 Robust API Design
+
+* Streaming responses (fast download)
+* Temporary file handling
+* Error-safe pipelines
 
 ---
 
