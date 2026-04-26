@@ -19,7 +19,6 @@ Built with a **bulletproof architecture (no crash, no corruption)** and optimize
 
 # ⚡ Core API Engine (v3.0 – Smart Hybrid)
 
-
 ### 🔥 Smart PDF Processing Engine
 
 * Multi-method extraction:
@@ -72,7 +71,7 @@ Convert PDFs into **structured Excel with zero corruption**
 * pdfplumber
 * pytesseract
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_excel.html](https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_excel.html)
+👉 [https://abhijeetraj22.github.io/live_projects/pdf_to_excel.html](https://abhijeetraj22.github.io/live_projects/pdf_to_excel.html)
 
 ---
 
@@ -94,7 +93,7 @@ Extract structured data from HTML/TXT with **clean schema mapping**
 * BeautifulSoup
 * Pandas / OpenPyXL
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/html_to_excel.html](https://abhijeetraj22.github.io/abhijeetraj22/html_to_excel.html)
+👉 [https://abhijeetraj22.github.io/live_projects/html_to_excel.html](https://abhijeetraj22.github.io/live_projects/html_to_excel.html)
 
 ---
 
@@ -120,7 +119,8 @@ Advanced academic parser for CBSE results (TXT / PDF)
 * FastAPI
 * Regex-based parsing engine
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/cbse_result_parser.html](https://abhijeetraj22.github.io/abhijeetraj22/cbse_result_parser.html)
+👉 [https://abhijeetraj22.github.io/live_projects/cbse_result_parser.html](https://abhijeetraj22.github.io/live_projects/cbse_result_parser.html)  
+👉 [https://abhijeetraj22.github.io/live_projects/cbse_data_parser.html](https://abhijeetraj22.github.io/live_projects/cbse_data_parser.html)
 
 ---
 
@@ -135,7 +135,7 @@ Convert PDF pages into high-quality images
 * Resolution preserved
 * ZIP download
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_images.html](https://abhijeetraj22.github.io/abhijeetraj22/pdf_to_images.html)
+👉 [https://abhijeetraj22.github.io/live_projects/pdf_to_images.html](https://abhijeetraj22.github.io/live_projects/pdf_to_images.html)
 
 ---
 
@@ -155,7 +155,7 @@ Combine multiple documents into one optimized PDF
 * pikepdf
 * docx2pdf
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/merge_pdf.html](https://abhijeetraj22.github.io/abhijeetraj22/merge_pdf.html)
+👉 [https://abhijeetraj22.github.io/live_projects/merge_pdf.html](https://abhijeetraj22.github.io/live_projects/merge_pdf.html)
 
 ---
 
@@ -176,7 +176,7 @@ Compare two Excel files with dynamic logic
   * Inner / Left / Right / Outer
 * Custom export columns
 
-👉 [https://abhijeetraj22.github.io/abhijeetraj22/excel_match.html](https://abhijeetraj22.github.io/abhijeetraj22/excel_match.html)
+👉 [https://abhijeetraj22.github.io/live_projects/excel_match.html](https://abhijeetraj22.github.io/live_projects/excel_match.html)
 
 ---
 
