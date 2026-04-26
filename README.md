@@ -34,8 +34,6 @@ Your backend is now powered by:
 * Page-range control (max 20 pages)
 * Multi / Single Excel modes
 
-📌 This is clearly visible in your API logic 
-
 ---
 
 ## 🔐 Enterprise-Level Security
