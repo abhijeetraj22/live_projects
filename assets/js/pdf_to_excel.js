@@ -39,10 +39,10 @@ const imageMethodButtons = document.querySelectorAll(
 
 const selectedMethodText = document.getElementById("selectedMethodText");
 const methodLabels = {
-  grid: "Grid Detection",
-  lattice: "Lattice",
-  stream: "Stream",
-  text: "Text Extraction",
+  grid: "Table Grid",
+  lattice: "Structural Table",
+  stream: "Free Text Table",
+  text: "Simple Text",
   ocr: "OCR (Image Recognition)",
   hybrid: "Hybrid (Text + OCR)",
 };
