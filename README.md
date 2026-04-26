@@ -19,7 +19,6 @@ Built with a **bulletproof architecture (no crash, no corruption)** and optimize
 
 # ⚡ Core API Engine (v3.0 – Smart Hybrid)
 
-Your backend is now powered by:
 
 ### 🔥 Smart PDF Processing Engine
 
