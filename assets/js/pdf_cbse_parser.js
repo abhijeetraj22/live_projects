@@ -1,9 +1,10 @@
 /* =====================================================
    CONFIG
 ===================================================== */
-const TXT_API = "http://127.0.0.1:8000/cbse/parse";
-const PDF_LOC_API = "http://127.0.0.1:8000/cbse_loc_pdf_extract";
-const PDF_REG_API = "http://127.0.0.1:8000/cbse_reg_pdf_extract";
+const TXT_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse/parse";
+const PDF_LOC_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse_loc_pdf_extract";
+const PDF_REG_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse_reg_pdf_extract";
+
 
 let excelBlob = null;
 let mode = "txt"; // default mode
