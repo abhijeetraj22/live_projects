@@ -397,7 +397,7 @@ processBtn.addEventListener("click", async () => {
 }); */
 /* =====================================================
    DOWNLOAD
-===================================================== */
+===================================================== 
 downloadBtn.addEventListener("click", () => {
   if (!excelBlob) return;
 
@@ -407,3 +407,4 @@ downloadBtn.addEventListener("click", () => {
   a.download = "cbse_result.xlsx";
   a.click();
 });
+*/
