@@ -45,7 +45,12 @@ async function api(route, payload) {
 
     if (!response.ok) {
         const error = await response.json();
-        throw Error(error.error || 'Planner request failed.');
+    
+        throw Error(
+            error.detail ||
+            error.error ||
+            'Planner request failed.'
+        );
     }
 
     return response;
