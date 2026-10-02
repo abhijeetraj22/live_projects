@@ -1,7 +1,7 @@
 
 // Empty uses the local Python app. For hosting, set your deployed HTTPS API URL.
 // Never put API secrets in this public file. See README_PORTFOLIO.md.
-const API_BASE_URL = '';
+const API_BASE_URL = "https://pdf-to-excel-api-smdv.onrender.com";
 let token;
 async function connect() {
     if (!token) {
