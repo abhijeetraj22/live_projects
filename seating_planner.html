@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>School Seating Planner | Abhijeet Raj</title>
+  <meta name="description" content="Prepare school exam attendance and seating reports from Excel workbooks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/seating_planner.css">
+  <script src="assets/js/seating_planner.js" defer></script>
+</head>
+<body>
+<div id="particles-js" aria-hidden="true"></div>
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-left">
+    <img id="logo" src="assets/images/planner-arm-logo.png" alt="ARM logo">
+    <a class="brand" href="seating_planner.html">Seating Planner</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://abhijeetraj22.github.io/abhijeetraj22/index.html">Home</a>
+    <a href="https://abhijeetraj22.github.io/abhijeetraj22/projects.html">Projects</a>
+    <a href="https://abhijeetraj22.github.io/abhijeetraj22/#contact">Contact</a>
+    <button id="theme-toggle" class="theme-btn" aria-label="Switch to light theme"><span id="theme-icon" aria-hidden="true">☾</span><span id="theme-text">Dark</span></button>
+    <a href="https://abhijeetraj22.github.io/live_projects/live_projects.html">Live Projects</a>
+  </div>
+</nav>
+<main id="home"><header class="intro"><h1>Seating Plan → Attendance &amp; Export</h1><p>Load your workbooks, review the room allocations, and generate your school’s formatted Excel reports.</p></header>
+<section class="card" id="files"><h2>01 &nbsp; Upload your workbooks</h2><div class="files upload-row">
+<div class="upload-block"><label class="file-btn" role="button" tabindex="0" for="subjects">Upload exam timetable</label><input id="subjects" type="file" accept=".xlsx" aria-label="Exam timetable"><div class="file-name" id="subjects-name">No file selected</div><small>MID_TERM_SUBJECT</small></div>
+<div class="upload-block"><label class="file-btn" role="button" tabindex="0" for="students">Upload student data</label><input id="students" type="file" accept=".xlsx" aria-label="Student data"><div class="file-name" id="students-name">No file selected</div><small>TOTAL_STUDENTS_DATA</small></div>
+<div class="upload-block"><label class="file-btn" role="button" tabindex="0" for="arrangement">Upload seating plan</label><input id="arrangement" type="file" accept=".xlsx" aria-label="Seating Plan"><div class="file-name" id="arrangement-name">No file selected</div><small>SEATING_PLAN</small></div></div>
+<div class="actions center-block"><button class="primary" id="load">Load files</button><small>Excel workbooks · Attendance and seating reports</small></div></section>
+<section class="card"><h2>02 &nbsp; Select grades</h2><div id="grades">Load files to see available grades.</div><p><small>Only selected grades appear in the output. NUR, K1, K2, 1 and 2 are assigned to their own classrooms automatically. Select one grade for a grade-wise workbook.</small></p><label>School heading<input id="school" value="OPEN MINDS - A BIRLA SCHOOL, KANKARBAGH"></label></section>
+<section class="card" id="allocation"><h2>03 &nbsp; Review room allocations</h2><p><small>Edit ranges below. Rooms and sides come from the uploaded Seating Plan. Attendance follows this same plan. Changes last until you reload files or close the app.</small></p>
+<div class="scroll"><table><thead><tr><th>Room</th><th>Side</th><th>Grade & section</th><th>First SL.NO</th><th>Last SL.NO</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="actions"><button id="add">Add allocation</button><button id="validate">Validate</button><button class="primary" id="export">Export Excel</button></div></section>
+<section class="card status-card" id="results" aria-live="polite"><h2 id="status">Ready to load</h2><pre id="report">Choose your three input workbooks to begin.</pre></section>
+<small class="notes">PTM entries are excluded. Missing pre-primary dates/subjects are marked as not provided in attendance. Combined elective subjects remain as written. Single-list rooms are paired under separate room headings. NUR through grade 2 appear only in attendance. Class lists are kept together. Room capacities are not inferred.</small></main>
+<footer class="footer">© <span id="year"></span> Abhijeet Raj • ARM</footer>
+</body>
+</html>
