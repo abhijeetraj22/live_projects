@@ -1,244 +1,388 @@
 /* =====================================================
-   CONFIG
+   CONFIG — replace the previous script with this entire file.
+   Load it after the page HTML, or use <script defer src="...">.
 ===================================================== */
 const TXT_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse/parse";
-const PDF_LOC_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse_loc_pdf_extract";
-const PDF_REG_API = "https://pdf-to-excel-api-smdv.onrender.com/cbse_reg_pdf_extract";
-
+const PDF_LOC_API =
+  "https://pdf-to-excel-api-smdv.onrender.com/cbse_loc_pdf_extract";
+const PDF_REG_API =
+  "https://pdf-to-excel-api-smdv.onrender.com/cbse_reg_pdf_extract";
 
 let excelBlob = null;
-let mode = "txt"; // default mode
+let mode = "txt";
+let selectedPDFType = "";
+let processing = false;
+let downloadName = "cbse_result.xlsx";
 
 /* =====================================================
    DOM REFERENCES
 ===================================================== */
 const processBtn = document.getElementById("processBtn");
+const convertPdfBtn = document.getElementById("convertPdfBtn");
 const downloadBox = document.getElementById("downloadBox");
 const downloadBtn = document.getElementById("downloadBtn");
 const status = document.getElementById("status");
-
 const txtInput = document.getElementById("txtFile");
 const pdfInput = document.getElementById("pdfFile");
-
 const txtLabel = document.getElementById("txt-label");
-const pdfLabel = document.getElementById("pdf-label");
-
+const pdfFileName = document.getElementById("pdfFileName");
 const sampleInput = document.getElementById("sampleLine");
 const gradeSelect = document.getElementById("grade");
-
+const gradeBox = document.getElementById("gradeBox");
 const txtSection = document.getElementById("txtSection");
-
 const txtModeBtn = document.getElementById("txtModeBtn");
 const pdfModeBtn = document.getElementById("pdfModeBtn");
-
+const pdfTypeBox = document.getElementById("pdfTypeBox");
+const pdfUploadBox = document.getElementById("pdfUploadBox");
+const regBtn = document.getElementById("regBtn");
+const locBtn = document.getElementById("locBtn");
 const toggleBtn = document.getElementById("theme-toggle");
 const icon = document.getElementById("theme-icon");
-const text = document.getElementById("theme-text");
+const themeText = document.getElementById("theme-text");
 
 /* =====================================================
-   MODE SWITCH
+   API KEY — entered by the operator, never saved by this script.
+   Reuses an existing input with id="cbseApiKey" if present.
 ===================================================== */
-txtModeBtn.addEventListener("click", () => {
-  mode = "txt";
+let apiKeyInput = document.getElementById("cbseApiKey");
+if (!apiKeyInput) {
+  const keyBox = document.createElement("div");
+  keyBox.id = "cbseApiKeyBox";
+  keyBox.style.margin = "12px 0";
 
-  txtSection.style.display = "block";
-  sampleInput.style.display = "block";
-  processBtn.style.display = "block";
+  const label = document.createElement("label");
+  label.htmlFor = "cbseApiKey";
+  label.textContent = "API key";
+  label.style.display = "block";
 
-  document.getElementById("pdfTypeBox").style.display = "none";
-  document.getElementById("pdfUploadBox").style.display = "none";
-  document.getElementById("gradeBox").style.display = "block";
-  // 🔥 RESET UI
-  downloadBox.style.display = "none";
-  status.innerText = "";
-  excelBlob = null;
+  apiKeyInput = document.createElement("input");
+  apiKeyInput.id = "cbseApiKey";
+  apiKeyInput.type = "password";
+  apiKeyInput.autocomplete = "off";
+  apiKeyInput.spellcheck = false;
+  apiKeyInput.placeholder = "Enter your API key";
+  apiKeyInput.style.width = "100%";
+  apiKeyInput.style.boxSizing = "border-box";
+  apiKeyInput.style.padding = "10px";
 
-  // highlight
-  txtModeBtn.style.opacity = "1";
-  pdfModeBtn.style.opacity = "0.5";
-});
-
-pdfModeBtn.addEventListener("click", () => {
-  mode = "pdf";
-
-  txtSection.style.display = "none";
-  sampleInput.style.display = "none";
-  processBtn.style.display = "none";
-
-  document.getElementById("pdfTypeBox").style.display = "block";
-  document.getElementById("gradeBox").style.display = "none";
-  // 🔥 RESET UI
-  downloadBox.style.display = "none";
-  status.innerText = "";
-  excelBlob = null;
-
-  // highlight
-  pdfModeBtn.style.opacity = "1";
-  txtModeBtn.style.opacity = "0.5";
-});
+  keyBox.appendChild(label);
+  keyBox.appendChild(apiKeyInput);
+  // Place outside the TXT/PDF sections so it remains visible in either mode.
+  const anchor = status || processBtn;
+  anchor.parentNode.insertBefore(keyBox, anchor);
+}
 
 /* =====================================================
-   FILE LABEL
+   SHARED REQUEST / STATUS HANDLING
+===================================================== */
+function resetResult() {
+  excelBlob = null;
+  downloadBox.style.display = "none";
+  status.textContent = "";
+}
+
+function getApiKey() {
+  const key = apiKeyInput.value.trim();
+  if (!key) {
+    apiKeyInput.focus();
+    throw new Error("Enter the API key before uploading.");
+  }
+  return key;
+}
+
+async function errorMessage(response) {
+  const raw = await response.text();
+  let message = raw;
+  try {
+    const data = JSON.parse(raw);
+    if (typeof data.detail === "string") {
+      message = data.detail;
+    } else if (Array.isArray(data.detail)) {
+      message = data.detail
+        .map((item) => item.msg || "Invalid request")
+        .join("; ");
+    }
+  } catch (_) {
+    // A gateway may return an HTML error page instead of FastAPI JSON.
+    if (/<(?:!doctype|html|body)\b/i.test(raw)) message = "";
+  }
+  if (response.status === 401) {
+    return "Unauthorized: enter the key that matches API_SECRET in Render's Environment settings.";
+  }
+  if (response.status === 429) {
+    return (
+      message ||
+      "Daily request limit reached. Try again after the quota resets."
+    );
+  }
+  if (response.status === 503) {
+    return (
+      message ||
+      "The server is busy or temporarily unavailable. Please retry shortly."
+    );
+  }
+  return message || `Request failed (HTTP ${response.status}).`;
+}
+
+async function requestExcel(apiUrl, formData, key) {
+  let response;
+  try {
+    response = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "X-API-Key": key },
+      body: formData,
+      // FormData sets Content-Type and its multipart boundary automatically.
+    });
+  } catch (_) {
+    throw new Error(
+      "Could not reach the service. Check your connection and Render logs; if the browser reports CORS, check ALLOWED_ORIGIN.",
+    );
+  }
+  if (!response.ok) throw new Error(await errorMessage(response));
+  const blob = await response.blob();
+  if (!blob.size) throw new Error("The server returned an empty file.");
+  return blob;
+}
+
+function validateUpload(file, extension) {
+  if (!file) throw new Error(`Select a ${extension.toUpperCase()} file.`);
+  if (!file.name.toLowerCase().endsWith(`.${extension}`)) {
+    throw new Error(`Select a valid ${extension.toUpperCase()} file.`);
+  }
+  if (file.size > 10 * 1024 * 1024)
+    throw new Error("The file must be 10 MB or smaller.");
+  if (file.size === 0) throw new Error("The selected file is empty.");
+}
+
+async function runConversion(button, label, apiUrl, formData, filename) {
+  if (processing) return;
+  resetResult();
+  let key;
+  try {
+    key = getApiKey();
+  } catch (error) {
+    status.textContent = "❌ " + error.message;
+    return;
+  }
+
+  processing = true;
+  resetResult();
+  status.textContent = `Processing ${label}...`;
+  const oldText = button.innerHTML;
+  button.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+  const controls = [
+    processBtn,
+    convertPdfBtn,
+    txtModeBtn,
+    pdfModeBtn,
+    regBtn,
+    locBtn,
+    txtInput,
+    pdfInput,
+    sampleInput,
+    gradeSelect,
+    apiKeyInput,
+  ];
+  const states = controls.map((control) => [control, control.disabled]);
+  controls.forEach((control) => {
+    control.disabled = true;
+  });
+  try {
+    excelBlob = await requestExcel(apiUrl, formData, key);
+    downloadName = filename;
+    status.textContent = `✅ ${label} processed successfully`;
+    downloadBox.style.display = "block";
+  } catch (error) {
+    excelBlob = null;
+    status.textContent = "❌ " + error.message;
+  } finally {
+    states.forEach(([control, wasDisabled]) => {
+      control.disabled = wasDisabled;
+    });
+    button.innerHTML = oldText;
+    processing = false;
+  }
+}
+
+/* =====================================================
+   MODE SWITCH / PDF TYPE
+===================================================== */
+function updateMode() {
+  const isTxt = mode === "txt";
+  txtSection.style.display = isTxt ? "block" : "none";
+  sampleInput.style.display = isTxt ? "block" : "none";
+  processBtn.style.display = isTxt ? "block" : "none";
+  pdfTypeBox.style.display = isTxt ? "none" : "block";
+  pdfUploadBox.style.display = !isTxt && selectedPDFType ? "block" : "none";
+  // REG may require a grade; LOC detects Class X / XII from PDF headers.
+  gradeBox.style.display =
+    isTxt || selectedPDFType === "REGIST" ? "block" : "none";
+  txtModeBtn.style.opacity = isTxt ? "1" : "0.5";
+  pdfModeBtn.style.opacity = isTxt ? "0.5" : "1";
+}
+
+txtModeBtn.addEventListener("click", () => {
+  if (processing) return;
+  mode = "txt";
+  resetResult();
+  updateMode();
+});
+pdfModeBtn.addEventListener("click", () => {
+  if (processing) return;
+  mode = "pdf";
+  resetResult();
+  updateMode();
+});
+
+function choosePDF(type) {
+  if (processing) return;
+  selectedPDFType = type;
+  pdfInput.value = "";
+  pdfFileName.textContent = "Select PDF file";
+  regBtn.style.opacity = type === "REGIST" ? "1" : "0.5";
+  locBtn.style.opacity = type === "LOC" ? "1" : "0.5";
+  resetResult();
+  updateMode();
+}
+regBtn.onclick = () => choosePDF("REGIST");
+locBtn.onclick = () => choosePDF("LOC");
+
+/* =====================================================
+   FILE LABELS / DRAG AND DROP
 ===================================================== */
 txtInput.addEventListener("change", () => {
-  txtLabel.textContent =
-    txtInput.files.length > 0 ? txtInput.files[0].name : "Select TXT file";
+  resetResult();
+  txtLabel.textContent = txtInput.files.length
+    ? txtInput.files[0].name
+    : "Select TXT file";
 });
-
 pdfInput.addEventListener("change", () => {
-  const fileNameBox = document.getElementById("pdfFileName");
-
-  fileNameBox.textContent =
-    pdfInput.files.length > 0 ? pdfInput.files[0].name : "Select PDF file";
+  resetResult();
+  pdfFileName.textContent = pdfInput.files.length
+    ? pdfInput.files[0].name
+    : "Select PDF file";
 });
-
-/* =====================================================
-   DRAG & DROP (TXT ONLY)
-===================================================== */
-txtSection.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  txtSection.style.border = "2px dashed #4da3ff";
+txtSection.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  if (!processing) txtSection.style.border = "2px dashed #4da3ff";
 });
-
 txtSection.addEventListener("dragleave", () => {
   txtSection.style.border = "";
 });
-
-txtSection.addEventListener("drop", (e) => {
-  e.preventDefault();
+txtSection.addEventListener("drop", (event) => {
+  event.preventDefault();
   txtSection.style.border = "";
-
-  const file = e.dataTransfer.files[0];
-
-  if (file && file.name.endsWith(".txt")) {
-    txtInput.files = e.dataTransfer.files;
+  if (processing) return;
+  const file = event.dataTransfer.files[0];
+  if (file && file.name.toLowerCase().endsWith(".txt")) {
+    txtInput.files = event.dataTransfer.files;
     txtLabel.textContent = file.name;
+    resetResult();
   } else {
     alert("Please drop a valid TXT file");
   }
 });
 
 /* =====================================================
-   PROCESS BUTTON (SMART SWITCH)
+   TXT PROCESS
 ===================================================== */
 processBtn.addEventListener("click", async () => {
-  const sample = sampleInput.value.trim();
-  const grade = gradeSelect.value;
-
-  let file, apiUrl;
-
-  if (mode === "txt") {
-    file = txtInput.files[0];
-    apiUrl = TXT_API;
-  } else {
-    file = pdfInput.files[0];
-    apiUrl = PDF_API;
-  }
-
-  if (!file || !sample) {
-    alert("Select file and paste sample line");
-    return;
-  }
-
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("sample_line", sample);
-  fd.append("grade", grade);
-
-  processBtn.disabled = true;
-  const oldText = processBtn.innerHTML;
-  processBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
-
-  downloadBox.style.display = "none";
-  excelBlob = null;
-
+  if (processing || mode !== "txt") return;
+  resetResult();
   try {
-    const resp = await fetch(apiUrl, {
-      method: "POST",
-      body: fd,
-    });
-
-    if (!resp.ok) {
-      const msg = await resp.text();
-      throw new Error(msg || "Extraction failed");
-    }
-
-    excelBlob = await resp.blob();
-
-    status.textContent = `✅ ${mode.toUpperCase()} processed successfully`;
-    downloadBox.style.display = "block";
-  } catch (err) {
-    console.error(err);
-    status.textContent = "❌ " + err.message;
-  } finally {
-    processBtn.disabled = false;
-    processBtn.innerHTML = '<i class="fa fa-gear"></i> Generate Excel';
+    const file = txtInput.files[0];
+    validateUpload(file, "txt");
+    const sample = sampleInput.value.trim();
+    if (!sample) throw new Error("Paste the sample line.");
+    const grade = gradeSelect.value;
+    if (!["10", "12"].includes(grade))
+      throw new Error("Select Class X or Class XII.");
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("sample_line", sample);
+    formData.append("grade", grade);
+    await runConversion(
+      processBtn,
+      "TXT",
+      TXT_API,
+      formData,
+      "cbse_result.xlsx",
+    );
+  } catch (error) {
+    status.textContent = "❌ " + error.message;
   }
 });
+
+/* =====================================================
+   PDF PROCESS
+===================================================== */
+async function processPDF(type) {
+  if (processing) return;
+  resetResult();
+  try {
+    if (!["REGIST", "LOC"].includes(type))
+      throw new Error("Select REGIST or LOC first.");
+    const file = pdfInput.files[0];
+    validateUpload(file, "pdf");
+    const formData = new FormData();
+    formData.append("file", file);
+    if (type === "REGIST") {
+      const grade = gradeSelect.value;
+      if (!["9", "10", "11", "12"].includes(grade))
+        throw new Error("Select the registration class.");
+      formData.append("grade", grade);
+    }
+    await runConversion(
+      convertPdfBtn,
+      `${type} PDF`,
+      type === "REGIST" ? PDF_REG_API : PDF_LOC_API,
+      formData,
+      "cbse_data.xlsx",
+    );
+  } catch (error) {
+    status.textContent = "❌ " + error.message;
+  }
+}
+convertPdfBtn.onclick = () => processPDF(selectedPDFType);
 
 /* =====================================================
    DOWNLOAD EXCEL
 ===================================================== */
 downloadBtn.addEventListener("click", () => {
-  if (!excelBlob) return;
-
-  // 🔥 DEFAULT NAME BASED ON MODE
-  let defaultName = mode === "txt" ? "cbse_result.xlsx" : "cbse_data.xlsx";
-
-  // 🔥 PROMPT WITH DEFAULT NAME
-  let name = prompt("Enter file name:", defaultName);
-  if (!name) return;
-
-  // 🔥 ENSURE .xlsx EXTENSION
-  if (!name.toLowerCase().endsWith(".xlsx")) {
-    name += ".xlsx";
-  }
-
+  if (!excelBlob || processing) return;
+  let name = prompt("Enter file name:", downloadName);
+  if (!name || !name.trim()) return;
+  name = name.trim();
+  if (!name.toLowerCase().endsWith(".xlsx")) name += ".xlsx";
   const url = URL.createObjectURL(excelBlob);
   const a = document.createElement("a");
   a.href = url;
   a.download = name;
-
   document.body.appendChild(a);
   a.click();
   a.remove();
-
-  // 🔥 CLEAN MEMORY (IMPORTANT)
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
 /* =====================================================
-   THEME TOGGLE
+   THEME / PARTICLES
 ===================================================== */
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  localStorage.setItem("theme", theme);
-
-  if (theme === "light") {
-    icon.className = "fa fa-sun";
-    text.textContent = "Light";
-    destroyParticles();
-  } else {
-    icon.className = "fa fa-moon";
-    text.textContent = "Dark";
-    destroyParticles();
-    initParticles();
-  }
+  try {
+    localStorage.setItem("theme", theme);
+  } catch (_) {}
+  if (icon) icon.className = theme === "light" ? "fa fa-sun" : "fa fa-moon";
+  if (themeText) themeText.textContent = theme === "light" ? "Light" : "Dark";
+  destroyParticles();
+  if (theme !== "light") initParticles();
 }
-
-applyTheme(localStorage.getItem("theme") || "dark");
-
-toggleBtn.addEventListener("click", () => {
-  const current = document.documentElement.dataset.theme;
-  applyTheme(current === "dark" ? "light" : "dark");
-});
-
-/* =====================================================
-   PARTICLES
-===================================================== */
 function initParticles() {
-  if (document.documentElement.dataset.theme !== "dark") return;
-
+  if (
+    document.documentElement.dataset.theme !== "dark" ||
+    typeof particlesJS !== "function"
+  )
+    return;
   particlesJS("particles-js", {
     particles: {
       number: { value: 40 },
@@ -247,164 +391,23 @@ function initParticles() {
       move: { speed: 0.6 },
       line_linked: { enable: false },
     },
-    interactivity: {
-      events: { onhover: { enable: true, mode: "repulse" } },
-    },
+    interactivity: { events: { onhover: { enable: true, mode: "repulse" } } },
   });
 }
-
 function destroyParticles() {
   const el = document.getElementById("particles-js");
   if (el) el.innerHTML = "";
 }
-/* =====================================================
-   PDF TYPE
-===================================================== */
-let selectedPDFType = "";
-
-const regBtn = document.getElementById("regBtn");
-const locBtn = document.getElementById("locBtn");
-const pdfUploadBox = document.getElementById("pdfUploadBox");
-
-regBtn.onclick = () => {
-  selectedPDFType = "REGIST";
-
-  pdfUploadBox.style.display = "block";
-
-  // highlight
-  regBtn.style.opacity = "1";
-  locBtn.style.opacity = "0.5";
-
-  // 🔥 RESET EVERYTHING
-  pdfInput.value = "";
-  document.getElementById("pdfFileName").textContent = "Select PDF file";
-  downloadBox.style.display = "none";
-  status.innerText = "";
-  excelBlob = null;
-};
-
-locBtn.onclick = () => {
-  selectedPDFType = "LOC";
-
-  pdfUploadBox.style.display = "block";
-
-  // highlight
-  locBtn.style.opacity = "1";
-  regBtn.style.opacity = "0.5";
-
-  // 🔥 RESET EVERYTHING
-  pdfInput.value = "";
-  document.getElementById("pdfFileName").textContent = "Select PDF file";
-  downloadBox.style.display = "none";
-  status.innerText = "";
-  excelBlob = null;
-};
-
-/* CONVERT BUTTON */
-convertPdfBtn.onclick = () => {
-  if (!selectedPDFType) {
-    alert("Select REGIST or LOC first");
-    return;
-  }
-
-  processPDF(selectedPDFType);
-};
-/* =====================================================
-   PDF PROCESS
-===================================================== */
-function processPDF(type) {
-  const file = pdfInput.files[0];
-
-  if (!file) {
-    alert("Select PDF file");
-    return;
-  }
-
-  // 🔥 SELECT API BASED ON TYPE
-  let apiUrl = "";
-
-  if (type === "REGIST") {
-    apiUrl = PDF_REG_API;
-  } else if (type === "LOC") {
-    apiUrl = PDF_LOC_API;
-  }
-
-  status.innerText = "Processing " + type + " PDF...";
-
-  let formData = new FormData();
-  formData.append("file", file);
-  formData.append("grade", gradeSelect.value);
-
-  fetch(apiUrl, {
-    method: "POST",
-    body: formData,
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Server error");
-      }
-      return res.blob();
-    })
-    .then((blob) => {
-      excelBlob = blob; // ✅ store globally
-
-      downloadBox.style.display = "block";
-      status.innerText = "Done ✅";
-    })
-    .catch((err) => {
-      console.error(err);
-      status.innerText = "❌ " + err.message;
-    });
-}
-
-/* =====================================================
-   TXT PROCESS
-=====================================================
-processBtn.addEventListener("click", async () => {
-  const file = txtInput.files[0];
-  const sample = sampleInput.value.trim();
-
-  if (!file || !sample) {
-    alert("Select file and paste sample line");
-    return;
-  }
-
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("sample_line", sample);
-  fd.append("grade", gradeSelect.value);
-
-  processBtn.disabled = true;
-  processBtn.innerHTML = "Processing...";
-
-  try {
-    const resp = await fetch(TXT_API, {
-      method: "POST",
-      body: fd,
-    });
-
-    excelBlob = await resp.blob();
-
-    status.innerText = "Done ✅";
-    downloadBox.style.display = "block";
-  } catch {
-    status.innerText = "Error ❌";
-  } finally {
-    processBtn.disabled = false;
-    processBtn.innerHTML = "Generate Excel";
-  }
-}); */
-/* =====================================================
-   DOWNLOAD
-===================================================== 
-downloadBtn.addEventListener("click", () => {
-  if (!excelBlob) return;
-
-  const url = URL.createObjectURL(excelBlob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "cbse_result.xlsx";
-  a.click();
-});
-*/
+let savedTheme = "dark";
+try {
+  savedTheme = localStorage.getItem("theme") || "dark";
+} catch (_) {}
+applyTheme(savedTheme);
+if (toggleBtn)
+  toggleBtn.addEventListener("click", () => {
+    applyTheme(
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+    );
+  });
+updateMode();
+resetResult();
